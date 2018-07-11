@@ -1,0 +1,119 @@
+message ASPLog {
+		optional		bytes			query					= 1 ;	//检索词
+		optional		uint32    		qid0                	= 2 ;	//唯一检索值0
+		optional		uint32    		qid1                	= 3 ;	//唯一检索值0
+		optional		uint32    		pn                  	= 4 ;	//翻页号
+		optional		bytes     		baiduid             	= 5 ;	//32位16进制,cookie标记
+		optional		bytes     		ip                  	= 6 ;	//会含有内网ip
+		optional		bytes     		ch                  	= 7 ;	//联盟渠道id
+		repeated		int32     		pli                 	= 8 ;	//有效产品线列表
+		repeated		int32     		tm                  	= 9 ;	//各产品线检索时间，与pli对应
+		optional		bytes     		eq                  	= 10 ;	//ui请求的扩展query
+		optional		uint32     		at                  	= 11 ;	//
+		optional		bytes     		url                 	= 12 ;	//ui请求的url信息,可以配置strdecode处理，log is utf-8，pb is gbk (先strdecode，utf8->gbk)
+		optional		uint32    		pid                 	= 13 ;	//ui请求ip对应的省份id
+		optional		uint32    		cid                 	= 14 ;	//ui请求ip对应的城市id
+		optional		bytes     		refer               	= 15 ;	//就是http请求中的refer,可以配置strdecode处理，log is utf-8，pb is gbk (先strdecode，utf8->gbk)
+		repeated		KeyValue  		xtra                	= 16 ;	//message
+		repeated		KeyValue  		wiseReqPrint        	= 17 ;	//wise数据源打印字段 message,做了strdecode处理
+		optional		bytes     		psReqPrint          	= 18 ;	//ps数据源打印字段,做了strdecode处理
+		optional		bytes     		ppPres              	= 19 ;	//各产品线结果打印字段
+		repeated		bytes     		imPres              	= 20 ;	//各产品线结果打印字段 message
+		optional		bytes     		maPres              	= 21 ;	//各产品线结果打印字段
+		optional		bytes     		houyiPres           	= 22 ;	//各产品线结果打印字段
+		optional		bytes     		cproPres            	= 23 ;	//各产品线结果打印字段
+		optional		bytes     		slPres              	= 24 ;	//各产品线结果打印字段
+		repeated		DataSource		dataSoures          	= 25 ;	//数据源 message
+		optional		uint64     		time                	= 26 ;	//
+		optional        uint64          logagent_time           = 27 ;  //记录logagent的时间点
+		repeated        bytes           sivaPres                = 28 ;  //siva产品线结果打印字段
+		optional        int32		    is_tag					= 29 ;  //区分pre日志的tag
+        optional        bytes           location                = 30 ;  //日志的机房地址，nj，hz，bj，gz等
+        optional        double          spamq                   = 31 ;  //esa_spamq for pc, esa_wspamq for wise
+        optional        bytes           rq                      = 32 ;
+        optional        bytes           cuid                    = 33 ;
+        optional        bytes           lingqu_qid              = 34 ;
+
+//        optional        test            testnested              = 35 ;
+//        message test {
+//            optional int32 testf = 1;
+//            optional test2 testf1 = 2;
+//
+//            message test2 {
+//                optional int32 testf2 = 1;
+//                optional test3 testf3 = 2;
+//            }
+//            message test3 {
+//                optional int32 testf4 = 1;
+//                optional te2   testf5 = 2;
+//            }
+//        }
+//        enum te2{
+//             tef2=0;
+//             tef3=1;
+//        }
+
+}
+message DataSource {
+		optional   int32		src						= 1 ;	//数据源号
+		optional   AdvOffset 	od                  	= 2 ;	//请求广告的偏移,只有0，1（enum）
+		optional   bytes     	cn                  	= 3 ;	//计费名
+		optional   bytes     	tn                  	= 4 ;	//模板名
+		optional   bytes     	srcPrint            	= 5 ;	//括号2 src_req
+		repeated   ProductLine	productLines        	= 6 ;	//产品线 message
+}
+message ProductLine {
+		optional	ProductType	svr						= 1 ;	//产品线列表 (enum)
+		optional	int32     	ret                 	= 2 ;	//返回广告数
+		optional	int32     	dis                 	= 3 ;	//展现广告条数
+		repeated	bytes     	spres               	= 4 ;	//括号2spres 没有经过strdecode处理
+		repeated	Advertisement						advs                 = 5 ;				   //广告
+		optional	bytes     							otherspres           = 6 ;				   //非IM产品线的括号2spres
+}
+message Advertisement {
+		optional	  uint32			rank					= 1 ;	//广告位次
+		optional	  uint64    		wd                  	= 2 ;	//展现广告id
+		optional	  uint32    		pl                  	= 3 ;	//广告的产品线id
+		optional	  MaterialType		mt                  	= 4 ;	//广告的物料类型id (message+enum)
+		optional	  bytes     		term                	= 5 ;	//匹配词
+		repeated	  bytes     		apres               	= 6 ;	//括号3 没有经过strdecode处理
+		repeated	  KeyValue  		apres2              	= 7 ;	//括号4 message 没有经过strdecode处理
+		optional	  bytes     		otherapres          	= 8 ;	//非IM产品线的括号3
+		optional	  bytes     		otherapres2         	= 9 ;	//非IM产品线的括号4
+		optional      bool              confirmed               = 10;
+		optional      PaFeedAdvInfo     pa_feed_adv_info        = 11;
+		optional      uint32            trade2                  = 12;   //二级分类
+}
+message KeyValue {
+		optional bytes			key						= 1 ;	//
+		optional bytes     		value               	= 2 ;	//
+}
+enum AdvOffset{
+	 NO_BRAND_PROMOTIN=0;
+	 BRAND_PROMOTIN=1;//品牌推广
+}
+enum ProductType{
+    PP = 0;
+    IM = 1;
+    MA = 2;
+    FS = 3;
+    HOUYI = 4;
+    CPRO = 5;
+    SL = 6;
+    SIVA = 7;
+    PROD_ALL = 8;
+    PROD_NUM = 9;
+}
+enum MaterialType{
+	 TYPE_AD_TEXT_LINK = 1;
+	 TYPE_AD_TEXT_BLOCK = 2;
+	 TYPE_AD_IMAGE = 3;
+	 TYPE_AD_MULTI_FLASH = 4;
+	 TYPE_AD_SINGLE_FLASH = 5;
+	 TYPE_AD_HTML = 6;
+	 TYPE_AD_VIDEO = 7;
+	 TYPE_AD_INTERACTIVE_FLASH=8;
+}
+message PaFeedAdvInfo {
+	repeated uint64 product_list = 1;
+}

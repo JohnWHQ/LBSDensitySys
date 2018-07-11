@@ -1,0 +1,21 @@
+message AntiClick {
+    optional string baiduid       = 1;    //BAIDUID
+    optional uint64 time          = 2;    //用户点击时间
+    optional uint32 qid0          = 3;    //serachid-qid0
+    optional uint32 qid1          = 4;    //serachid-qid1
+    optional int32  rank          = 5;    //
+    optional int32  cmatch        = 6;
+    optional bytes  query         = 7;    //检索关键词
+    optional bytes  url           = 8;
+    optional uint32 click_type    = 9;    //数值在1-399的是凤巢产品线的，400-499的为知心点击日志，其他的都过滤掉
+    optional uint64 logagent_time = 10;   //从logagent拿数据时间
+    optional uint64 winfoid       = 11;
+    optional bytes  orig_url      = 12;    //点击跳转url
+    optional uint64 target_url_sign = 13;  //点击url的签名
+    optional string subqid        = 14;    //从CJ的K域获取,知心点击日志专用
+    optional uint64 hostid        = 15;    //the hash of host
+    optional uint32 userid        = 16;    //用户id
+    optional bytes  mt            = 17;    //展现样式mt列表
+    optional bytes  ki            = 18;    //计费连接有关样式列表
+    optional bytes  cuid          = 19;    //cuid
+}
