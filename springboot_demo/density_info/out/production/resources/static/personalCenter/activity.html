@@ -1,0 +1,318 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>监控信息发布中心</title>
+	<link type="text/css" href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+	<link type="text/css" href="css/theme.css" rel="stylesheet">
+	<link type="text/css" href="images/icons/css/font-awesome.css" rel="stylesheet">
+	<link type="text/css" href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600' rel='stylesheet'>
+	
+	<!-- JS API导入 不导ajax要废废 -->
+	<script src="scripts/config.js" type="text/javascript"></script>
+    <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+</head>
+<body>
+
+        <!-- 顶部栏内容 -->
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-inverse-collapse">
+                        <i class="icon-reorder shaded"></i>
+                    </a>
+
+                    <a class="brand" href="index.html">
+                        LBS
+                    </a>
+
+                    <div class="nav-collapse collapse navbar-inverse-collapse">
+
+                        <!-- 顶部三图标快捷入口 -->
+                        <ul class="nav nav-icons">
+                            <li class="active"><a href="#"><i class="icon-envelope"></i></a></li>
+                            <li><a href="#"><i class="icon-eye-open"></i></a></li>
+                            <li><a href="#"><i class="icon-bar-chart"></i></a></li>
+                        </ul>
+
+                        <!-- 搜索框控件 -->
+                        <form class="navbar-search pull-left input-append" action="#">
+                        <input type="text" class="span3">
+                        <button class="btn" type="button">
+                            <i class="icon-search"></i>
+                        </button>
+                        </form>
+                        <!-- 右上角的一坨 -->
+                        <ul class="nav pull-right">
+                            <!-- 系统设置下拉模块 -->
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    系统设置
+                                <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">系统设置1</a></li>
+                                    <li><a href="#">系统设置2</a></li>
+                                    <li class="divider"></li>
+                                    <li class="nav-header">阴影选项</li>
+                                    <li><a href="#">待开发</a></li>
+                                </ul>
+                            </li>
+                            <!-- 用户名显示模块 -->
+                            <li><a href="#" id="username"></a></li>
+                            <!-- 个人信息中模块 -->
+                            <li class="nav-user dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <img src="images/user.png" class="nav-avatar" />
+                                <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">个人信息</a></li>
+                                    <li><a href="#">编辑信息</a></li>
+                                    <li><a href="#">帐号设置</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#" onclick="logout()">注销</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /.nav-collapse -->
+                </div>
+            </div>
+            <!-- /navbar-inner -->
+        </div>
+        <!-- /navbar -->
+
+
+
+	<div class="wrapper">
+		<div class="container">
+			<div class="row">
+                    <div class="span3">
+                        <div class="sidebar">
+                            <ul class="widget widget-menu unstyled">
+                                <li class="active"><a href="index.html"><i class="menu-icon icon-dashboard"></i>实时监控
+                                </a></li>
+                                <li><a href="activity.html"><i class="menu-icon icon-bullhorn"></i>监控信息 </a>
+                                </li>
+                                <li><a href="message.html"><i class="menu-icon icon-inbox"></i>信息通知 <b class="label green pull-right">
+                                    11</b> </a></li>
+                                <li><a href="task.html"><i class="menu-icon icon-tasks"></i>规划任务 <b class="label orange pull-right">
+                                    19</b> </a></li>
+                            </ul>
+                            <!--/.widget-nav-->
+
+                            <!-- 左边中部分导航栏模块 -->
+                            <ul class="widget widget-menu unstyled">
+                                <li><a href="poiManager.html"><i class="menu-icon icon-bold"></i> 监控位置信息 </a></li>
+                                <li><a href="polygonManager.html"><i class="menu-icon icon-book"></i>监控密度信息 </a></li>
+                                <li><a href="projectManager.html"><i class="menu-icon icon-paste"></i>监控工程管理 <b class="label red pull-right">
+                                    新功能!</b></a></li>
+                                <li><a href="table.html"><i class="menu-icon icon-table"></i>监控统计表 </a></li>
+                                <li><a href="charts.html"><i class="menu-icon icon-bar-chart"></i>监控统计图 </a></li>
+                            </ul>
+                            
+                            <!-- 左边下部分导航栏模块 -->
+                            <!--/.widget-nav-->
+                            <ul class="widget widget-menu unstyled">
+                                <li><a class="collapsed" data-toggle="collapse" href="#togglePages"><i class="menu-icon icon-cog">
+                                </i><i class="icon-chevron-down pull-right"></i><i class="icon-chevron-up pull-right">
+                                </i>管理中心 </a>
+                                    <ul id="togglePages" class="collapse unstyled">
+                                        <li><a href="poiManager.html"><i class="icon-inbox"></i>点信息管理 </a></li>
+                                        <li><a href="polygonManager.html"><i class="icon-inbox"></i>面信息管理 </a></li>      
+                                        <li><a href="other-login.html"><i class="icon-inbox"></i>登录切换 </a></li>
+                                        <li><a href="other-user-profile.html"><i class="icon-inbox"></i>信息中心 </a></li>
+                                        <li><a href="other-user-listing.html"><i class="icon-inbox"></i> 用户列表 </a></li>                                                   
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#" onclick="logout()">
+                                    <i class="menu-icon icon-signout"></i>
+                                    登出注销 </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!--/.sidebar-->
+                    </div>
+                    <!--/.span3-->
+
+
+				<div class="span9">
+					<div class="content">
+
+						<div class="module">
+							<div class="module-head">
+								<h3>监控信息发布中心</h3>
+							</div>
+							<div class="module-body">
+								<div class="stream-composer media">
+									<a href="#" class="media-avatar medium pull-left">
+										<img src="images/user.png">
+									</a>
+									<div class="media-body">
+										<div class="row-fluid">
+											<textarea id = "acText" placeholder = "发布监控信息..."class="span12" style="height: 70px; resize: none;"></textarea>
+										</div>
+										<div class="clearfix">
+											<a  class="btn btn-primary pull-right" onclick="submit()">
+												确认发布
+											</a>
+											<a href="#" class="btn btn-small" rel="tooltip" data-placement="top" data-original-title="Upload a photo">
+												<i class="icon-camera shaded"></i>
+											</a>
+											<a href="#" class="btn btn-small" rel="tooltip" data-placement="top" data-original-title="Upload a video">
+												<i class="icon-facetime-video shaded"></i>
+											</a>
+											<a href="#" class="btn btn-small" rel="tooltip" data-placement="top" data-original-title="Pin your location">
+												<i class="icon-map-marker shaded"></i>
+											</a>
+										</div>
+									</div>
+								</div>
+
+								<div class="stream-list" id = "divTemplate">
+<!-- 									<div class="media stream new-update">
+										<a href="#">
+											<i class="icon-refresh shaded"></i>
+											11 updates
+										</a>
+									</div> -->
+									<div class="media stream">
+										<a href="#" class="media-avatar medium pull-left">
+											<img src="images/user.png">
+										</a>
+										<div class="media-body">
+											<div class="stream-headline">
+												<h5 class="stream-author">
+													同济大学交通信息控制联合实验中心 
+													<small>2017年11月30日 (已置顶)</small>
+												</h5>
+												<div class="stream-text">
+												在当今时代市场和技术双重驱动之下，LBS即基于位置的服务迅速发展起来。LBS是定位技术、移动通讯技术、GIS技术和互联网技术相结合的产物，其有广义和狭义之分。狭义地说，LBS业务是通过无线通信网络获取无线用户的位置信息，在地理信息系统平台的支持下提供相应服务的一种无线增值业务。广义地说只要是基于位置的信息服务均属于位置服务。LBS的巨大魅力在于通过固定或移动网络发送GIS功能和基于位置的信息，从而在任何时间应用到任何人、任何位置和任何设备上。
+                                                </div>
+												<div class="stream-attachment photo">
+													<div class="responsive-photo">
+														<img src="images/img.jpg" />
+													</div>
+												</div>
+											</div><!--/.stream-headline-->
+
+											<div class="stream-options">
+												<a href="#" class="btn btn-small">
+													<i class="icon-thumbs-up shaded"></i>
+													赞同
+												</a>
+												<a href="#" class="btn btn-small">
+													<i class="icon-reply shaded"></i>
+													回复
+												</a>
+												<a href="#" class="btn btn-small">
+													<i class="icon-retweet shaded"></i>
+													转发
+												</a>
+											</div>
+										</div>
+									</div><!--/.media .stream-->
+
+									<div class="media stream">
+										<a href="#" class="media-avatar medium pull-left">
+											<img src="images/user.png">
+										</a>
+										<div class="media-body">
+											<div class="stream-headline">
+												<h5 class="stream-author">
+													同济大学交通信息控制联合实验中心 
+													<small>2017年11月30日 (已置顶)</small>
+												</h5>
+												<div class="stream-text">在空间信息领域，地图代数计算是通过栅格图像来完成的，当前大部分数字化地图是以矢量化的形式存在的，本研究采用的百度地图也是矢量格式，栅格图像转换为矢量图像比较复杂其中涉及到编码规则及压缩模型等选择，然后矢量化转栅格就很容易，通过简单的二值化即可完成，有了栅格化的图像，便可以根据空间算法进行相关的地图代数计算工作。
+												</div>
+												<div class="stream-attachment video">
+													<div class="responsive-video">
+														
+                                                        
+                                                        <iframe src="http://pic.ibaotu.com/00/30/98/61u888piCvtr.mp4" width="560" height="315" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> 
+                                                        
+                                                        
+													</div>
+												</div>
+											</div><!--/.stream-headline-->
+
+											<div class="stream-options">
+												<a href="#" class="btn btn-small">
+													<i class="icon-thumbs-up shaded"></i>
+													赞同
+												</a>
+												<a href="#" class="btn btn-small">
+													<i class="icon-reply shaded"></i>
+													回复
+												</a>
+												<a href="#" class="btn btn-small">
+													<i class="icon-retweet shaded"></i>
+													转发
+												</a>
+											</div>
+										</div>
+									</div><!--/.media .stream-->
+
+
+                                    
+
+								</div><!--/.stream-list-->
+							</div><!--/.module-body-->
+						</div><!--/.module-->
+						
+					</div><!--/.content-->
+				</div><!--/.span9-->
+			</div>
+		</div><!--/.container-->
+	</div><!--/.wrapper-->
+
+        <!-- 页脚模块 -->
+        <!--/.wrapper-->
+        <div class="footer">
+            <div class="container">
+                <b class="copyright"> 2017 LBS402 - 王老汉 </b>All rights reserved.
+            </div>
+        </div>
+
+<script type="text/javascript">
+
+function submit(){
+
+	var content = $("#acText").val();
+	// var address = "127.0.0.1";
+
+	  	if($("#acText").val()){
+		    $.ajax({
+		    type: "post",
+		    url: "http://" + config.mAddress + ":8088/John/api/activity/mocadd",
+		    dataType: "json",
+		    data: {'content': content, 'uid': sessionStorage.session_id},
+		    async: false,
+		    success: function(data){
+		    	alert("发布成功!");
+		    },
+		    error: function(){
+		        alert('服务端异常');
+		        $('#loading').addClass('hidden');
+		    }
+		    })
+	  	}
+	// 清空发布内容  	
+	document.getElementById("acText").value="";  	
+}
+
+function refresh(){
+	window.location.reload();
+}
+
+</script>
+
+	<script src="scripts/jquery-1.9.1.min.js" type="text/javascript"></script>
+	<script src="scripts/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
+	<script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+	<script src="scripts/initLoad_activity.js" type="text/javascript"></script>
+</body>
